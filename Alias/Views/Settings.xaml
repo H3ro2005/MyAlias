@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Alias.Views.Settings"
+             xmlns:Triggers="clr-namespace:Alias.Triggers"
+             Title="Settings">
+    <ContentPage.Triggers>
+        
+        <DataTrigger TargetType="ContentPage" 
+                     Binding="{Binding Source={x:Reference Switch1},
+                                       Path=IsToggled}"
+                     Value="false">
+        
+            <DataTrigger.EnterActions>
+                <Triggers:GradientTrigger isgradient="1"/>
+            </DataTrigger.EnterActions>
+       
+        </DataTrigger>
+        <DataTrigger TargetType="ContentPage"
+                     Binding="{Binding Source={x:Reference Switch1},
+                                       Path=IsToggled}"
+                     Value="true">
+            <DataTrigger.EnterActions>
+                <Triggers:GradientTrigger isgradient="2"/>
+            </DataTrigger.EnterActions>
+
+        </DataTrigger>
+        <DataTrigger TargetType="ContentPage"
+                     Binding="{Binding Source={x:Reference Switch2},
+                                       Path=IsToggled}"
+                     Value="false">
+
+            <DataTrigger.EnterActions>
+                <Triggers:GradientTrigger isanimated="1"/>
+            </DataTrigger.EnterActions>
+
+        </DataTrigger>
+        <DataTrigger TargetType="ContentPage"
+                     Binding="{Binding Source={x:Reference Switch2},
+                                       Path=IsToggled}"
+                     Value="true">
+          
+            <DataTrigger.EnterActions>
+                <Triggers:GradientTrigger isanimated="2"/>
+            </DataTrigger.EnterActions>
+         
+        </DataTrigger>
+    </ContentPage.Triggers>
+
+    <Grid RowDefinitions="auto, *">
+
+        <HorizontalStackLayout Margin="0,30,0,10" Spacing="10" Grid.Row="0">
+            <ImageButton x:Name="Image1" Source="Back.png" HeightRequest="50" WidthRequest="50" Padding="5" Background="transparent"   Command="{Binding startview}" HorizontalOptions="Start"/>
+        </HorizontalStackLayout>
+
+        <VerticalStackLayout Grid.Row="1" Padding="10" Spacing="5">
+        <Label HorizontalOptions="Start">
+                <Label.Text>
+                    <Binding Path="Time" StringFormat="{}Time:{0}"/>
+                </Label.Text>
+                </Label>
+                <Slider Minimum="30"  Maximum="90" Value="{Binding Time}" MaximumTrackColor="{DynamicResource Dark}" MinimumTrackColor="{DynamicResource Primary}" ThumbColor="{DynamicResource Primary}"/>
+            <Label HorizontalOptions="Start">
+                <Label.Text>
+                    <Binding Path="Count" StringFormat="{}Count:{0}"/>
+                </Label.Text>
+            </Label>
+            <Slider Minimum="30" Maximum="100" Value="{Binding Count}" MaximumTrackColor="{DynamicResource Dark}" MinimumTrackColor="{DynamicResource Primary}" ThumbColor="{DynamicResource Primary}"/>
+            <Label Text="Themes"/>
+            <HorizontalStackLayout>
+                <Button  BackgroundColor="DarkBlue" HeightRequest="50" WidthRequest="50" CornerRadius="25" Command="{Binding Theme}" CommandParameter="Water">
+                    <Button.Triggers>
+                    <EventTrigger  Event="Clicked">
+                        <Triggers:GradientTrigger />
+                    </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button BackgroundColor="{StaticResource FireDark}" HeightRequest="50" WidthRequest="50" CornerRadius="25" Command="{Binding Theme}" CommandParameter="Fire">
+                    <Button.Triggers>
+                        <EventTrigger  Event="Clicked">
+                            <Triggers:GradientTrigger/>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button BackgroundColor="{StaticResource ForestDark}" HeightRequest="50" WidthRequest="50" CornerRadius="25" Command="{Binding Theme}" CommandParameter="Forest">
+                    <Button.Triggers>
+                        <EventTrigger  Event="Clicked">
+                            <Triggers:GradientTrigger/>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button BackgroundColor="Black" HeightRequest="50" WidthRequest="50" CornerRadius="25" Command="{Binding Theme}" CommandParameter="Smoke">
+                    <Button.Triggers>
+                        <EventTrigger  Event="Clicked">
+                            <Triggers:GradientTrigger/>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+
+
+            </HorizontalStackLayout>
+            <Switch IsToggled="{Binding IsGradient}" x:Name="Switch1" ThumbColor="{DynamicResource Dark}"  OnColor="White"/>
+            <Switch IsToggled="{Binding IsAnimated}" x:Name="Switch2" ThumbColor="{DynamicResource Dark}"  OnColor="White"/>
+
+        </VerticalStackLayout>
+        </Grid>
+</ContentPage>

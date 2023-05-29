@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="testing.MainPage"
+             xmlns:local="clr-namespace:testing">
+    <ContentPage.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Color="Blue"
+                          Offset="0.1" />
+            <GradientStop Color="RoyalBlue"
+                          Offset="0.55"/>
+            <GradientStop Color="Aqua"
+                          Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <ScrollView >
+
+
+        <VerticalStackLayout Padding="0, 25 , 0 ,0" >
+            <CollectionView 
+                ItemsSource="{Binding teamChooses}"
+                IsGrouped="True"
+                HeightRequest="400">
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate >
+                        <HorizontalStackLayout>
+                            <Label 
+                                    Text="{Binding Name}"
+                                    FontSize="18"
+                                    FontAttributes="Bold" />
+                            <Button 
+                                    Text="Add a Player" 
+                                    Command="{Binding Source = {RelativeSource AncestorType={x:Type local:TeamsViewMode}}, Path=ToAdd}" 
+                                    CommandParameter="{Binding Name}"/>
+                            <Button 
+                                    Text="Rename" 
+                                    Command="{Binding Source = {RelativeSource AncestorType={x:Type local:TeamsViewMode}}, Path=ToRename}" 
+                                    CommandParameter="{Binding Name}"/>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout 
+                        Orientation="Vertical"
+                        Span="{OnPlatform Android=1 , iOS=1, Default=2}" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate >
+                        <Grid ColumnDefinitions="auto, * , auto" BackgroundColor="Transparent" MinimumWidthRequest="10" MaximumWidthRequest="500" Padding="2" VerticalOptions="Start"  >
+                            <Label 
+                               BackgroundColor="Transparent"
+                               HorizontalOptions="Start"
+                               Text="{Binding Players}" 
+                               Grid.Column="1" 
+                               VerticalTextAlignment="Center" />
+                            <Button 
+                               Text="x" 
+                               Grid.Column="2"
+                               HorizontalOptions="End"
+                               TextColor="Black"
+                               BorderWidth="0"
+                               Background="Transparent"
+                               Command="{Binding Source = {RelativeSource AncestorType={x:Type local:TeamsViewMode}}, Path=ToDelete}" 
+                               CommandParameter="{Binding Id}"/>
+                            <Button 
+                               Text="!"
+                               TextColor="Black"
+                               BorderWidth="0"
+                               BackgroundColor="Transparent"
+                               Command="{Binding Source = {RelativeSource AncestorType={x:Type local:TeamsViewMode}}, Path=ToRename}" 
+                               CommandParameter="{Binding Id}"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Command ="{Binding ToDelete}" Text="Delete Team"/>
+            <Button Command ="{Binding ToAdd}" Text="Add Team" />
+            <Button Command ="{Binding ToStart}" Text="Start" />
+            <Button 
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" 
+                    HeightRequest="50"
+                    WidthRequest="100" 
+                    Text="Սկսեցինք"
+                    Command="{Binding ToCreate}"/>
+        </VerticalStackLayout>
+
+    </ScrollView>
+</ContentPage>

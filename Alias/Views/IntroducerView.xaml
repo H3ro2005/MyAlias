@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls ="clr-namespace:Alias.Controls"
+             x:Class="Alias.Views.IntroducerView"
+             Title="IntroducerView"
+          x:Name="Content">
+    <ContentPage.Background>
+        <RadialGradientBrush Center="0.5,0.5">
+            <GradientStop Color="{DynamicResource Primary}"
+                          Offset="0.1" />
+            <GradientStop Color="{DynamicResource Secondary}"
+                          Offset="0.55"/>
+            <GradientStop Color="{DynamicResource Light}"
+                          Offset="1.0" />
+        </RadialGradientBrush>
+    </ContentPage.Background>
+    <VerticalStackLayout Background="Transparent" VerticalOptions="Center" HorizontalOptions="Center">
+        <Label TextColor="white" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Text="{Binding intm}" FontSize="Header"/>
+        <Label TextColor="White" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Text="{Binding inname}"/>
+        <Button Text="սկսենք " Command="{Binding start}" IsVisible="{Binding X}" BackgroundColor="{DynamicResource Dark}"/>
+        <Button Text="միավորներ" Command="{Binding end}" IsVisible="{Binding Y}" BackgroundColor="{DynamicResource Dark}"/>
+        <Label TextColor="White" Text="{Binding ins}" IsVisible="{Binding Y}"/>
+    </VerticalStackLayout>
+</ContentPage>

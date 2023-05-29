@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Alias.Views.TeamCreate"
+             xmlns:m="clr-namespace:Alias.Models"
+              xmlns:vm="clr-namespace:Alias.ViewModels"
+             x:Name="Content">
+    <ContentPage.Background>
+        <RadialGradientBrush Center="0.5,0.5">
+            <GradientStop Color="{DynamicResource Primary}"
+                          Offset="0.1" />
+            <GradientStop Color="{DynamicResource Secondary}"
+                          Offset="0.55"/>
+            <GradientStop Color="{DynamicResource Light}"
+                          Offset="1.0" />
+        </RadialGradientBrush>
+    </ContentPage.Background>
+    <ContentPage.Resources>
+        <Style TargetType="Button" x:Key="disabled">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" >
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="White" />
+                                <Setter Property="BackgroundColor" Value="{DynamicResource Dark}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="Black" />
+                            <Setter Property="BackgroundColor" Value="{DynamicResource Disabled}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <ScrollView >
+
+
+        <VerticalStackLayout Padding="0, 25 , 0 ,0" >
+            <CollectionView 
+                ItemsSource="{Binding teamChooses}"
+                IsGrouped="True"
+                HeightRequest="400">
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate >
+                        <Grid Padding="5" ColumnDefinitions="auto,auto,auto,*">
+                                <Label Grid.Column="0"
+                                    Text="{Binding Name}"
+                                    FontSize="18"
+                                    FontAttributes="Bold" />
+                                <Button Grid.Column="1"
+                                    Text="+" 
+                                        TextColor="Black"
+                                        Background="Transparent"
+                                    Command="{Binding Source = {RelativeSource AncestorType={x:Type vm:TeamsViewModel}}, Path=ToAdd}" 
+                                    CommandParameter="{Binding Name}"/>
+                                <Button Grid.Column="2"
+                                    Text="Rename" 
+                                        TextColor="Black"
+                                        Background="Transparent"
+                                    Command="{Binding Source = {RelativeSource AncestorType={x:Type vm:TeamsViewModel}}, Path=ToRename}" 
+                                    CommandParameter="{Binding Name}"/>
+                            </Grid>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout 
+                        Orientation="Vertical"
+                        Span="{OnPlatform Android=1 , iOS=1, Default=2}" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate >
+                        <Grid ColumnDefinitions="auto, * , auto" BackgroundColor="Transparent" MinimumWidthRequest="10" MaximumWidthRequest="500" Padding="2" VerticalOptions="Start"  >
+                            <Label 
+                               BackgroundColor="Transparent"
+                               HorizontalOptions="Start"
+                               Text="{Binding Players}" 
+                               Grid.Column="1" 
+                               VerticalTextAlignment="Center" />
+                            <Button 
+                               Text="x" 
+                               Grid.Column="2"
+                               HorizontalOptions="End"
+                               TextColor="Black"
+                               BorderWidth="0"
+                               Background="Transparent"
+                               Command="{Binding Source = {RelativeSource AncestorType={x:Type vm:TeamsViewModel}}, Path=ToDelete}" 
+                               CommandParameter="{Binding Id}"/>
+                            <Button 
+                               Text="!"
+                               TextColor="Black"
+                               BorderWidth="0"
+                               BackgroundColor="Transparent"
+                               Command="{Binding Source = {RelativeSource AncestorType={x:Type vm:TeamsViewModel}}, Path=ToRename}" 
+                               CommandParameter="{Binding Id}"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+            <Grid ColumnDefinitions="*,3*,*" Margin="50,0">
+                <Button Style="{DynamicResource disabled}" Grid.Column="0" HeightRequest="50" WidthRequest="50" Text="+" CornerRadius="50" Command="{Binding TimeIncrement}"  />
+                <VerticalStackLayout Grid.Column="1">
+                <Label Text="Time" TextColor="White"/>
+                <Label Text="{Binding Time}" TextColor="{DynamicResource Light}"/>
+                </VerticalStackLayout>
+                <Button Style="{DynamicResource disabled}" Grid.Column="2" HeightRequest="50" WidthRequest="50" Text="-" CornerRadius="50" Command="{Binding TimeDicrement}"  />
+            </Grid>
+            <Grid RowDefinitions="*,*,*" RowSpacing="10" Margin="50,0">
+            <Button CornerRadius="0" Grid.Row="0" Command ="{Binding ToDelete}" Text="Delete Team" BackgroundColor="{DynamicResource Dark}"/>
+                <Button CornerRadius="0" Grid.Row="1" Command ="{Binding ToAdd}" Text="Add Team" BackgroundColor="{DynamicResource Dark}"/>
+                <Button CornerRadius="0" Grid.Row="2" Command ="{Binding ToStart}" Text="Start" BackgroundColor="{DynamicResource Dark}"/>
+            </Grid>
+            <Button 
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" 
+                    HeightRequest="50"
+                    WidthRequest="100" 
+                    Text="Սկսեցինք"
+                    IsVisible="false"
+                    Command="{Binding ToCreate}"/>
+        </VerticalStackLayout>
+
+    </ScrollView>
+    
+</ContentPage>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Alias.Views.ScoreView"
+              xmlns:m="clr-namespace:Alias.Models"
+              xmlns:vm="clr-namespace:Alias.ViewModels"
+             x:Name="Content">
+    <ContentPage.Background>
+        <RadialGradientBrush Center="0.5,0.5">
+            <GradientStop Color="{DynamicResource Primary}"
+                          Offset="0.1" />
+            <GradientStop Color="{DynamicResource Secondary}"
+                          Offset="0.55"/>
+            <GradientStop Color="{DynamicResource Light}"
+                          Offset="1.0" />
+        </RadialGradientBrush>
+    </ContentPage.Background>
+    <VerticalStackLayout Padding="0, 25 , 0 ,0" >
+        <Grid ColumnDefinitions="auto,*">
+            <HorizontalStackLayout  Spacing="10" Grid.Column="0">
+                <ImageButton x:Name="Image2" Source="Back.png" HeightRequest="50" WidthRequest="50" Padding="5"   Command="{Binding Return}" HorizontalOptions="Start"/>
+                <Label  TextColor="Black" HorizontalOptions="Center">
+                    <Label.Text>
+                        <Binding Path="Count" StringFormat="{}Reach {0} points to win"/>
+                    </Label.Text>
+                </Label>
+            </HorizontalStackLayout>
+            
+      
+        </Grid>
+        <CollectionView 
+                ItemsSource="{Binding teamPlay}"
+                IsGrouped="True"
+                HeightRequest="400">
+            <CollectionView.GroupHeaderTemplate>
+                <DataTemplate >
+                    <HorizontalStackLayout>
+                        <Label 
+                                    Text="{Binding Name}"
+                                    FontSize="18"
+                                    FontAttributes="Bold" />
+
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.GroupHeaderTemplate>
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout 
+                        Orientation="Vertical"
+                        Span="{OnPlatform Default=2}" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate >
+                    <Grid ColumnDefinitions="auto, * , auto" BackgroundColor="Transparent" MinimumWidthRequest="10" MaximumWidthRequest="500" Padding="2" VerticalOptions="Start"  >
+                        <Label 
+                               BackgroundColor="Transparent"
+                               HorizontalOptions="Start"
+                      
+                            Grid.Column="1" 
+                               VerticalTextAlignment="Center" >
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}{0}:{1} ">
+                                    <Binding Path="Players" />
+                                    <Binding Path="Points" />
+
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button BackgroundColor="{DynamicResource Dark}" Command ="{Binding ToStart}" Text="Start" />
+
+    </VerticalStackLayout>
+</ContentPage>

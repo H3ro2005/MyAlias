@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="testing.ScoreView"
+              xmlns:m="clr-namespace:testing"
+             >
+
+    <VerticalStackLayout Padding="0, 25 , 0 ,0" >
+        <CollectionView 
+                ItemsSource="{Binding teamPlay}"
+                IsGrouped="True"
+                HeightRequest="400">
+            <CollectionView.GroupHeaderTemplate>
+                <DataTemplate >
+                    <HorizontalStackLayout>
+                        <Label 
+                                    Text="{Binding Name}"
+                                    FontSize="18"
+                                    FontAttributes="Bold" />
+                      
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.GroupHeaderTemplate>
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout 
+                        Orientation="Vertical"
+                        Span="{OnPlatform Android=1 , iOS=1, Default=2}" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate >
+                    <Grid ColumnDefinitions="auto, * , auto" BackgroundColor="Transparent" MinimumWidthRequest="10" MaximumWidthRequest="500" Padding="2" VerticalOptions="Start"  >
+                        <Label 
+                               BackgroundColor="Transparent"
+                               HorizontalOptions="Start"
+                               Text="{Binding Players}" 
+                               Grid.Column="1" 
+                               VerticalTextAlignment="Center" />
+                        
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Command ="{Binding ToStart}" Text="Start" />
+
+    </VerticalStackLayout>
+</ContentPage>

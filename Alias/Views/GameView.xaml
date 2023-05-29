@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Alias.Views.GameView"
+             xmlns:controls="clr-namespace:Alias.Controls"
+             xmlns:vm ="clr-namespace:Alias.ViewModels"
+              xmlns:m ="clr-namespace:Alias.Models"
+             Title="GameView" x:Name="Content">
+    <ContentPage.Background>
+        <RadialGradientBrush Center="0.5,0.5">
+            <GradientStop Color="{DynamicResource Primary}"
+                          Offset="0.1" />
+            <GradientStop Color="{DynamicResource Secondary}"
+                          Offset="0.55"/>
+            <GradientStop Color="{DynamicResource Light}"
+                          Offset="1.0" />
+        </RadialGradientBrush>
+    </ContentPage.Background>
+    <ContentPage.Resources>
+    
+        <Style TargetType="Grid" x:Key="grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" >
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="White" />
+                                <Setter  Value="none" Property="Image.Source" TargetName="label"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="LightGray" />
+                                <Setter  Value="settings.png" Property="Image.Source" TargetName="label"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+        <Style TargetType="Grid" >
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="Transparent" />
+                              
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+    </ContentPage.Resources>
+    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Start" Padding="50">
+       
+        <Grid HeightRequest="200" WidthRequest="200" >
+
+
+            <controls:Timer x:Name="tick" UpdaterTicks="{Binding Timer}" Time="90" TimerColor="{DynamicResource Primary}" InsideColor="White" TimeLineSize="10" HeightRequest="180" WidthRequest="180" />
+            <Label HeightRequest="80" WidthRequest="80"   Text="{Binding Timer}" FontSize="48" />
+        </Grid>
+        <Frame IsClippedToBounds="True" BorderColor="Transparent" Padding="0" CornerRadius="25" >
+        <CollectionView HeightRequest="375" BackgroundColor="Black"  ItemsSource="{Binding wordsmodels}" SelectionMode="Multiple" SelectedItems="{Binding sitem}" SelectionChangedCommand="{Binding changed}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                           ItemSpacing="1" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="m:wordsmodel">
+                    
+                        <Grid HeightRequest="75" Style="{DynamicResource grid}"    >
+
+                        <Image HeightRequest="50" WidthRequest="50" HorizontalOptions="Start" x:Name="label" Style="{DynamicResource image}"></Image>
+                        <Label   Text="{Binding word}" FontSize="20" />
+                        </Grid>
+                   
+
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+        </Frame>
+
+
+
+
+
+
+    </VerticalStackLayout>
+</ContentPage>

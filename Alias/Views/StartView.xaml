@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Alias.Views.StartView"
+            xmlns:vm="clr-namespace:Alias.ViewModels"
+             x:Name="Content"
+            >
+  
+
+    <Grid Padding="0,20,0,60" RowDefinitions="*,2*,auto">
+        <ImageButton 
+            x:Name="Image"
+            Background="Transparent"
+              VerticalOptions="Start" 
+            HorizontalOptions="End" 
+         Source="settings.png"
+            HeightRequest="50"
+            WidthRequest="50" 
+            Command="{Binding Settings}"
+           />
+       
+            <Label
+            Text="Alias"
+            FontSize="50"
+            VerticalOptions="Start" 
+            HorizontalOptions="Center" 
+                Grid.Row="1"
+            />
+   
+ 
+        <Button 
+            Grid.Row="2"
+              VerticalOptions="End" 
+   Margin="40,0,40,0"
+            CornerRadius="50"
+            HeightRequest="100"
+            BackgroundColor="{DynamicResource Dark}"
+            FontSize="20"
+            Text=" խաղալ "
+            Command="{Binding ToCreate}"/>
+    </Grid>
+</ContentPage>
